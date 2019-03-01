@@ -1,3 +1,5 @@
+. ~/.dotfiles/gitprompt
+
 export TERM=xterm-256color
 
 # gitの設定

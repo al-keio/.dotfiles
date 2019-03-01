@@ -1,3 +1,5 @@
+. ~/.dotfiles/gitprompt
+
 export TERM=xterm-256color
 # 色を使用出来るようにする
 autoload -Uz colors

@@ -3,5 +3,4 @@
 # Source other files
 . ~/.dotfiles/paths
 . ~/.dotfiles/envs
-. ~/.dotfiles/gitprompt
 . ~/.dotfiles/aliases
