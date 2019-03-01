@@ -57,6 +57,11 @@ precmd () {
     PROMPT="[%B%F{green}%n%f%b@%B%F{red}%m%f%b %F{cyan}%U%~%u%f%B%F{magenta}%f%b]
 \$ "
   fi
+
+  if [ -v VIRTUAL_ENV ]; then
+    RPROMPT="${VIRTUAL_ENV##*/}"
+    RPROMPT="(pipenv: ${RPROMPT%-*})"
+  fi
 }
 
 
