@@ -1,8 +1,3 @@
-# Source other files
-. ~/.dotfiles/aliases
-. ~/.dotfiles/gitprompt
-. ~/.dotfiles/paths
-
 export TERM=xterm-256color
 
 # gitの設定

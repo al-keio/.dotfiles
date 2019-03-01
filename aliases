@@ -16,7 +16,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 
 # envを使いたい時のコマンド
-alias envs=". ~/.dotfiles/envs"
+#alias envs=". ~/.dotfiles/envs"
 
 # シェルの再起動
 alias relogin='exec $SHELL -l'
