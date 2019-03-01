@@ -13,7 +13,7 @@ do
 done
 
 if [ ! -f ~/.gitconfig ]; then
-  ln -Fis "$PWD/gitconfig.tmp" $HOME/.gitconfig
+  cp -i "$PWD/gitconfig.tmp" $HOME/.gitconfig
 fi
 
 mkdir -p "${HOME}/local/bin"

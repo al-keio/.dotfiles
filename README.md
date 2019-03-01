@@ -10,5 +10,5 @@ install.shの機能
 
 1. このレポジトリを"$HOME/.dotfiles"にクローンする
 2. install.shを実行
-3. gitconfig.tmp(~/.gitconfig)のnameとemailを更新
+3. ~/.gitconfigのnameとemailを更新
 
