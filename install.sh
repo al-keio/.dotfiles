@@ -60,5 +60,5 @@ fi
 # enhancdのインストール
 if [ ! -e ~/.enhancd ]; then
   git clone git@github.com:b4b4r07/enhancd.git ~/.enhancd
-  cp init.sh ~/.enhancd/init.sh
+  cp enhancd_init.sh ~/.enhancd/init.sh
 fi
