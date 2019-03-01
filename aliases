@@ -1,0 +1,64 @@
+#!/bin/sh
+# lsの設定
+if [ "$(uname)" = 'Darwin' ]; then
+  export LSCOLORS=gxcxfxdxbxegedabagacad
+  alias ls='ls -G'
+else
+  eval `dircolors $HOME/.colorrc`
+  alias ls='ls --color=auto'
+fi
+
+# clearコマンドを簡略化
+alias c="clear"
+
+# ファイルの安全性を高める(overwrite?を確認するようになる)
+alias mv="mv -i"
+alias cp="cp -i"
+
+# envを使いたい時のコマンド
+alias envs=". ~/.dotfiles/envs"
+
+# シェルの再起動
+alias relogin='exec $SHELL -l'
+
+# dirs
+alias dirs="dirs -v"
+
+# peco用
+if type "peco" > /dev/null 2>&1; then
+  . ~/.dotfiles/aliases_peco
+fi
+
+# rmtrashがインストールされていればrmコマンドをゴミ箱行きにする (rmtrashは要インストール)
+if type "rmtrash" > /dev/null 2>&1; then
+  echo "alias rm=""rmtrash"""  #rmtrashが存在する時の処理
+  alias rm="rmtrash"
+fi
+
+
+# railsのエイリアス
+alias rails="bundle exec rails"
+alias binstall="bundle install --path vendor/bundle"
+alias rmbr="/bin/rm Gemfile Gemfile.lock ;/bin/rm -rf .bundle vendor"
+
+rnew () {
+    bundle exec rails new $1 --skip-bundle
+}
+
+creategemfile () {
+    if [ $# = 0 ] ; then
+        cat << EOS > Gemfile
+        source "http://rubygems.org"
+        gem "rails"
+EOS
+    else
+        cat << EOS > Gemfile
+        source "http://rubygems.org"
+        gem "rails", "$1"
+EOS
+    fi
+}
+
+
+# vscodeをコマンドラインから実行
+vscode () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}

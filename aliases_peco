@@ -1,0 +1,64 @@
+#!/bin/sh
+
+if type "kill" > /dev/null 2>&1; then
+  function kill-peco {
+    for pid in `\ps aux | peco | awk '{ print $2 }'`
+    do
+      kill -9 $pid
+    done
+  }
+
+  alias killp="kill-peco"
+fi
+
+if type "ssh" > /dev/null 2>&1; then
+  function ssh-peco {
+    local selected_hosts=$(awk '
+      tolower($1)=="host" {
+        for (i=2; i<=NF; i++) {
+          if ($i !~ "[*?]") {
+            print $i
+          }
+        }
+      }
+    ' ~/.ssh/config | sort | peco --query "$LBUFFER")
+    if [ -n "$selected_hosts" ]; then
+      ssh $selected_hosts
+    fi
+  }
+
+  alias sshp="ssh-peco"
+fi
+
+if type "ssh-add" > /dev/null 2>&1; then
+  function ssh-add-peco {
+    local identityfiles=`find $HOME/.ssh -type f -perm 600 -not -name config | peco`
+    if [ -n "$identityfiles" ]; then
+      ssh-add $identityfiles
+    fi
+  }
+
+  alias addp="ssh-add-peco"
+fi
+
+if type "tmux" > /dev/null 2>&1; then
+  function tmux-peco {
+    if [ -n "$TMUX" ]; then
+      echo 'Do not use this command in a tmux session.'
+      return 1
+    fi
+
+    tmux ls > /dev/null
+
+    if [ $? -ne 0 ]; then
+      return
+    fi
+
+    local session="$(tmux list-sessions | peco | cut -d : -f 1)"
+    if [ -n "$session" ]; then
+      tmux a -t $session
+    fi
+  }
+
+  alias tmuxp="tmux-peco"
+fi

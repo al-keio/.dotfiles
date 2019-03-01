@@ -1,0 +1,3 @@
+.DS_Store
+exclude/a.out
+.vim/.netrwhist

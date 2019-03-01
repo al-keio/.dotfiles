@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "$(uname)" = 'Darwin' ]; then
+  export PATH="/usr/local/opt/openssl/bin:$PATH"
+fi
+
+export PATH="$PATH:$HOME/local/bin:$HOME/local/mybin"
