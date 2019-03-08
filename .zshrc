@@ -47,21 +47,22 @@ setopt TRANSIENT_RPROMPT
 
 # プロンプト
 precmd () {
+  PROMPT="[%B%F{green}%n%f%b@%B%F{red}Mac%f%b %F{cyan}%U%~%u%f"
   if [ "$(uname)" = 'Darwin' ]; then
-    PROMPT="[%B%F{green}%n%f%b@%B%F{red}Mac%f%b %F{cyan}%U%~%u%f%B%F{magenta}$(__git_ps1 " (%s)")%f%b]
-\$ "
+    PROMPT="${PROMPT}%B%F{magenta}$(__git_ps1 " (%s)")%f%b"
   elif type "__git_ps1" > /dev/null 2>&1; then
-    PROMPT="[%B%F{green}%n%f%b@%B%F{red}%m%f%b %F{cyan}%U%~%u%f%B%F{magenta}$(__git_ps1 " (%s)")%f%b]
-\$ "
-  else
-    PROMPT="[%B%F{green}%n%f%b@%B%F{red}%m%f%b %F{cyan}%U%~%u%f%B%F{magenta}%f%b]
-\$ "
+    PROMPT="${PROMPT}%B%F{magenta}$(__git_ps1 " (%s)")%f%b"
   fi
 
   if [ -v VIRTUAL_ENV ]; then
-    RPROMPT="${VIRTUAL_ENV##*/}"
-    RPROMPT="(pipenv: ${RPROMPT%-*})"
+    local VPROMPT="${VIRTUAL_ENV##*/}"
+    local VPROMPT="%B%F{yellow}(pipenv: ${VPROMPT%-*})%f%b"
+    #RPROMPT="${VPROMPT}"
+    PROMPT="${PROMPT} ${VPROMPT}"
   fi
+  PROMPT="${PROMPT}]
+\$ "
+
 }
 
 
