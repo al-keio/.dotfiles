@@ -18,9 +18,6 @@ alias cp="cp -i"
 # ssh-agentの利用をしやすくする
 alias ssh="ssh -A"
 
-# envを使いたい時のコマンド
-#alias envs=". ~/.dotfiles/envs"
-
 # シェルの再起動
 alias relogin='exec $SHELL -l'
 
