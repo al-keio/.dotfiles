@@ -15,6 +15,9 @@ alias c="clear"
 alias mv="mv -i"
 alias cp="cp -i"
 
+# ssh-agentの利用をしやすくする
+alias ssh="ssh -A"
+
 # envを使いたい時のコマンド
 #alias envs=". ~/.dotfiles/envs"
 
