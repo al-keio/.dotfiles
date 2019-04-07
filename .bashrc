@@ -1,11 +1,7 @@
 . ~/.dotfiles/gitprompt
+. ~/.dotfiles/git-completion.bash
 
 export TERM=xterm-256color
-
-# gitの設定
-if [ "$(uname)" = 'Darwin' ]; then
-  source /usr/local/etc/bash_completion.d/git-completion.bash
-fi
 
 # プロンプト
 function promps {
