@@ -47,10 +47,13 @@ setopt TRANSIENT_RPROMPT
 
 # プロンプト
 precmd () {
-  PROMPT="[%B%F{green}%n%f%b@%B%F{red}Mac%f%b %F{cyan}%U%~%u%f"
   if [ "$(uname)" = 'Darwin' ]; then
-    PROMPT="${PROMPT}%B%F{magenta}$(__git_ps1 " (%s)")%f%b"
-  elif type "__git_ps1" > /dev/null 2>&1; then
+    PROMPT="[%B%F{green}%n%f%b@%B%F{red}Mac%f%b %F{cyan}%U%~%u%f"
+  else
+    PROMPT="[%B%F{green}%n%f%b@%B%F{red}%m%f%b %F{cyan}%U%~%u%f"
+  fi
+
+  if type "__git_ps1" > /dev/null 2>&1; then
     PROMPT="${PROMPT}%B%F{magenta}$(__git_ps1 " (%s)")%f%b"
   fi
 
