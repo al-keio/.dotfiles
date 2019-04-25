@@ -65,7 +65,12 @@ fi
 
 if type "docker" > /dev/null 2>&1; then
   function docker-exec-peco {
-    local container=`docker ps | awk 'NR > 1 {print $1 "\t\t" $2 "\t\t" $NF}' | peco | awk '{print $1}'`
+    local container=`docker ps | awk 'NR > 1 {print $1 "\t\t" $2 "\t\t" $NF}'`
+    if [ ! -n "$container" ]; then
+      echo "There is no running container"
+      return
+    fi
+    container=`echo $container | peco | awk '{print $1}'`
     if [ -n "$container" ]; then
       docker exec -it $container $SHELL
     fi
