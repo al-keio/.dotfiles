@@ -5,3 +5,4 @@ if [ "$(uname)" = 'Darwin' ]; then
 fi
 
 export PATH="$PATH:$HOME/local/bin:$HOME/local/mybin"
+export GOPATH="$HOME/go"
