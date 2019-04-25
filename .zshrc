@@ -120,7 +120,11 @@ bindkey '^R' history-incremental-pattern-search-backward
 
 if type "peco" > /dev/null 2>&1; then
   function peco-history-selection() {
-    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    if [ "$(uname)" = 'Darwin' ]; then
+      BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    else
+      BUFFER=`history -n 1 | tac | awk '!a[$0]++' | peco`
+    fi
     zle accept-line
   }
 
