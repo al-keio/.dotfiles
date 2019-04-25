@@ -1,3 +1,4 @@
+. ~/.dotfiles/others
 . ~/.dotfiles/gitprompt
 . ~/.dotfiles/git-completion.bash
 
