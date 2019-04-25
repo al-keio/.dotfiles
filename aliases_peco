@@ -8,7 +8,7 @@ if type "kill" > /dev/null 2>&1; then
     done
   }
 
-  alias killp="kill-peco"
+  alias kp="kill-peco"
 fi
 
 if type "ssh" > /dev/null 2>&1; then
@@ -27,7 +27,7 @@ if type "ssh" > /dev/null 2>&1; then
     fi
   }
 
-  alias sshp="ssh-peco"
+  alias sp="ssh-peco"
 fi
 
 if type "ssh-add" > /dev/null 2>&1; then
@@ -38,11 +38,11 @@ if type "ssh-add" > /dev/null 2>&1; then
     fi
   }
 
-  alias addp="ssh-add-peco"
+  alias sap="ssh-add-peco"
 fi
 
 if type "tmux" > /dev/null 2>&1; then
-  function tmux-peco {
+  function tmux-attach-peco {
     if [ -n "$TMUX" ]; then
       echo 'Do not use this command in a tmux session.'
       return 1
@@ -60,5 +60,17 @@ if type "tmux" > /dev/null 2>&1; then
     fi
   }
 
-  alias tmuxp="tmux-peco"
+  alias tap="tmux-peco"
 fi
+
+if type "docker" > /dev/null 2>&1; then
+  function docker-exec-peco {
+    local container=`docker ps | awk 'NR > 1 {print $1 "\t\t" $2 "\t\t" $NF}' | peco | awk '{print $1}'`
+    if [ -n "$container" ]; then
+      docker exec -it $container $SHELL
+    fi
+  }
+  alias dep="docker-exec-peco"
+fi
+
+
