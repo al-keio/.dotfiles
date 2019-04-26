@@ -73,6 +73,11 @@ if type "docker" > /dev/null 2>&1; then
     container=`echo $container | peco | awk '{print $1}'`
     if [ -n "$container" ]; then
       docker exec -it $container $SHELL
+      if [ $? -ne 0 ];then
+        echo ""
+        echo "There is no $SHELL so using bash"
+        docker exec -it $container bash
+      fi
     fi
   }
   alias dep="docker-exec-peco"
