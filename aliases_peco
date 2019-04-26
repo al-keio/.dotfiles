@@ -72,10 +72,9 @@ if type "docker" > /dev/null 2>&1; then
     fi
     container=`echo $container | peco | awk '{print $1}'`
     if [ -n "$container" ]; then
-      docker exec -it $container $SHELL
+      docker exec -it $container `basename $SHELL`
       if [ $? -ne 0 ];then
-        echo ""
-        echo "There is no $SHELL so using bash"
+        echo 'So using "bash"'
         docker exec -it $container bash
       fi
     fi
