@@ -4,4 +4,5 @@
 . ~/.dotfiles/paths
 . ~/.dotfiles/envs
 . ~/.dotfiles/aliases
+. ~/.dotfiles/ift
 . ~/.enhancd/init.sh

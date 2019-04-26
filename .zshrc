@@ -118,16 +118,16 @@ setopt nonomatch
 # ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
 bindkey '^R' history-incremental-pattern-search-backward
 
-if type "peco" > /dev/null 2>&1; then
-  function peco-history-selection() {
+if type "$IFT" > /dev/null 2>&1; then
+  function ift-history-selection() {
     if [ "$(uname)" = 'Darwin' ]; then
-      BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+      BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | $IFT`
     else
-      BUFFER=`history -n 1 | tac | awk '!a[$0]++' | peco`
+      BUFFER=`history -n 1 | tac | awk '!a[$0]++' | $IFT`
     fi
     zle accept-line
   }
 
-  zle -N peco-history-selection
-  bindkey '^R' peco-history-selection
+  zle -N ift-history-selection
+  bindkey '^R' ift-history-selection
 fi

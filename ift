@@ -1,0 +1,20 @@
+#!/bin/sh
+
+local IFTS=("fzf" "peco")
+
+for IFT in ${IFTS[@]}
+do
+  if type "$IFT" > /dev/null 2>&1; then
+    export $IFT
+    break
+  fi
+done
+
+if [[ $IFT == "fzf" ]]; then
+  export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+fi
+
+if type "$IFT" > /dev/null 2>&1; then
+  . ~/.dotfiles/aliases_ift
+fi
+

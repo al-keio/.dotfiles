@@ -24,11 +24,6 @@ alias relogin='exec $SHELL -l'
 # dirs
 alias dirs="dirs -v"
 
-# peco用
-if type "peco" > /dev/null 2>&1; then
-  . ~/.dotfiles/aliases_peco
-fi
-
 # rmtrashがインストールされていればrmコマンドをゴミ箱行きにする (rmtrashは要インストール)
 if type "rmtrash" > /dev/null 2>&1; then
   echo "alias rm=""rmtrash"""  #rmtrashが存在する時の処理
