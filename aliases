@@ -19,7 +19,7 @@ alias cp="cp -i"
 alias ssh="ssh -A"
 
 # シェルの再起動
-alias relogin='exec $SHELL -l'
+alias relogin='exec $CURT_SHELL -l'
 
 # dirs
 alias dirs="dirs -v"

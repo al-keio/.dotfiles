@@ -1,10 +1,23 @@
 #!/bin/sh
 
+function set-cmd () {
+  if [[ $CURT_SHELL == "zsh" ]]; then
+    print -z $1
+  #elif [[ $CURT_SHELL == "bash" ]]; then
+  #  print -z $1
+  #  READLINE_LINE=$1
+  #  READLINE_POINT=${#READLINE_LINE}
+  else
+    echo "$1"
+    eval "$1"
+  fi
+}
+
 if type "kill" > /dev/null 2>&1; then
   function kill-ift {
     for pid in `\ps aux | $IFT | awk '{ print $2 }'`
     do
-      kill -9 $pid
+      set-cmd "kill -9 $pid"
     done
   }
 
@@ -23,7 +36,7 @@ if type "ssh" > /dev/null 2>&1; then
       }
     ' ~/.ssh/config | sort | $IFT --query "$LBUFFER")
     if [ -n "$selected_hosts" ]; then
-      ssh $selected_hosts
+      set-cmd "ssh $selected_hosts"
     fi
   }
 
@@ -34,7 +47,7 @@ if type "ssh-add" > /dev/null 2>&1; then
   function ssh-add-ift {
     local identityfiles=`find $HOME/.ssh -type f -perm 600 -not -name config | $IFT`
     if [ -n "$identityfiles" ]; then
-      ssh-add $identityfiles
+      set-cmd "ssh-add $identityfiles"
     fi
   }
 
@@ -56,7 +69,7 @@ if type "tmux" > /dev/null 2>&1; then
 
     local session="$(tmux list-sessions | $IFT | cut -d : -f 1)"
     if [ -n "$session" ]; then
-      tmux a -t $session
+      set-cmd "tmux a -t $session"
     fi
   }
 
@@ -65,18 +78,14 @@ fi
 
 if type "docker" > /dev/null 2>&1; then
   function docker-exec-ift {
-    local container=`docker ps | awk 'NR > 1 {print $1 "\t\t" $2 "\t\t" $NF}'`
+    local container="`docker ps | awk 'NR>1'`"
     if [ ! -n "$container" ]; then
       echo "There is no running container"
       return
     fi
-    container=`echo $container | $IFT | awk '{print $1}'`
+    container=`docker ps | awk 'NR>1 {print $1 "\t\t" $2 "\t\t" $NF}' | $IFT | awk '{print $1}'`
     if [ -n "$container" ]; then
-      docker exec -it $container `basename $SHELL`
-      if [ $? -ne 0 ];then
-        echo 'So using "bash"'
-        docker exec -it $container bash
-      fi
+      set-cmd "docker exec -it $container `basename $CURT_SHELL`"
     fi
   }
   alias deif="docker-exec-ift"

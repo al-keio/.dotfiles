@@ -1,6 +1,6 @@
 #!/bin/sh
 
-local IFTS=("fzf" "peco")
+IFTS=("fzf" "peco")
 
 for IFT in ${IFTS[@]}
 do
@@ -12,6 +12,7 @@ done
 
 if [[ $IFT == "fzf" ]]; then
   export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+  export FZF_DEFAULT_OPTS='--reverse --border'
 fi
 
 if type "$IFT" > /dev/null 2>&1; then

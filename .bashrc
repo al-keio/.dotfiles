@@ -30,3 +30,15 @@ function promps {
 promps
 # プロンプト(終)
 
+if type "$IFT" > /dev/null 2>&1; then
+  function ift-history-selection() {
+    if [ "$(uname)" = 'Darwin' ]; then
+      READLINE_LINE=`history | awk '{$1=""; print}' | tail -r  | sed 's/^[ ]*//g' | $IFT`
+    else
+      READLINE_LINE=`history | awk '{$1=""; print}' | tac | sed 's/^[ ]*//g' | $IFT`
+    fi
+    READLINE_POINT=${#READLINE_LINE}
+  }
+
+  bind -x '"\C-r": ift-history-selection'
+fi

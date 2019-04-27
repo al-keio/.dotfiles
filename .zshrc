@@ -121,11 +121,11 @@ bindkey '^R' history-incremental-pattern-search-backward
 if type "$IFT" > /dev/null 2>&1; then
   function ift-history-selection() {
     if [ "$(uname)" = 'Darwin' ]; then
-      BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | $IFT`
+      BUFFER="`history -n 1 | tail -r  | awk '!a[$0]++' | $IFT`"
     else
       BUFFER=`history -n 1 | tac | awk '!a[$0]++' | $IFT`
     fi
-    zle accept-line
+    CURSOR=$#BUFFER
   }
 
   zle -N ift-history-selection
