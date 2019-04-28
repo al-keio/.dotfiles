@@ -1,9 +1,9 @@
 #!/bin/sh
 
 function set-cmd () {
-  if [[ $CURT_SHELL == "zsh" ]]; then
+  if [[ $CURT_SHELL_BPATH == "zsh" ]]; then
     print -z $1
-  #elif [[ $CURT_SHELL == "bash" ]]; then
+  #elif [[ $CURT_SHELL_BPATH == "bash" ]]; then
   #  print -z $1
   #  READLINE_LINE=$1
   #  READLINE_POINT=${#READLINE_LINE}
@@ -85,7 +85,7 @@ if type "docker" > /dev/null 2>&1; then
     fi
     container=`docker ps | awk 'NR>1 {print $1 "\t\t" $2 "\t\t" $NF}' | $IFT | awk '{print $1}'`
     if [ -n "$container" ]; then
-      set-cmd "docker exec -it $container `basename $CURT_SHELL`"
+      set-cmd "docker exec -it $container `basename $CURT_SHELL_BPATH`"
     fi
   }
   alias deif="docker-exec-ift"

@@ -7,5 +7,6 @@ fi
 export PATH="$PATH:$HOME/local/bin:$HOME/local/mybin"
 export GOPATH="$HOME/go"
 
-export CURT_SHELL=`basename $(ps -p $$ -o comm | awk 'NR==2' | sed 's/\-//g')`
+export CURT_SHELL=`which $(ps -p $$ -o comm | awk 'NR==2' | sed 's/\-//g')`
+export CURT_SHELL_BPATH=`basename $CURT_SHELL`
 
