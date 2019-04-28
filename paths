@@ -7,5 +7,5 @@ fi
 export PATH="$PATH:$HOME/local/bin:$HOME/local/mybin"
 export GOPATH="$HOME/go"
 
-export CURT_SHELL=`ps -p $$ | grep -Eo '[^a..zA..Z0..9][a..z]{0,2}sh' | sed 's/\///g' | sed 's/\-//g' | sed 's/\ //g'`
+export CURT_SHELL=`basename $(ps -p $$ -o comm | awk 'NR==2' | sed 's/\-//g')`
 
