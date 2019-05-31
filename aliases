@@ -21,6 +21,10 @@ alias ssh="ssh -A"
 # シェルの再起動
 alias relogin='exec $CURT_SHELL -l'
 
+# 第一引数のファイルをクリップボードにコピー
+alias clip="pbcopy <"
+
+
 # dirs
 alias dirs="dirs -v"
 
