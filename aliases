@@ -11,9 +11,10 @@ fi
 # clearコマンドを簡略化
 alias c="clear"
 
-# ファイルの安全性を高める(overwrite?を確認するようになる)
+# ファイルの安全性を高める
 alias mv="mv -i"
 alias cp="cp -i"
+alias rm="rm -i"
 
 # ssh-agentの利用をしやすくする
 alias ssh="ssh -A"
