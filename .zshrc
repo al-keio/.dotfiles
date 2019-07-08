@@ -9,8 +9,8 @@ bindkey -e
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
-HISTSIZE=2000
-SAVEHIST=2000
+HISTSIZE=100000
+SAVEHIST=100000
 HISTTIMEFORMAT=%Y/%m/%d%H:%M:%S
 
 # 単語の区切り文字を指定する
