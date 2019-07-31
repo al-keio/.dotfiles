@@ -74,6 +74,26 @@ if type "tmux" > /dev/null 2>&1; then
   }
 
   alias taif="tmux-attach-ift"
+
+  function tmux-kill-ift {
+    if [ -n "$TMUX" ]; then
+      echo 'Do not use this command in a tmux session.'
+      return 1
+    fi
+
+    tmux ls > /dev/null
+
+    if [ $? -ne 0 ]; then
+      return
+    fi
+
+    local session="$(tmux list-sessions | $IFT | cut -d : -f 1)"
+    if [ -n "$session" ]; then
+      set-cmd "tmux kill-session -t $session"
+    fi
+  }
+
+  alias tkif="tmux-kill-ift"
 fi
 
 if type "docker" > /dev/null 2>&1; then
