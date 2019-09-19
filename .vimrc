@@ -57,6 +57,7 @@ set incsearch      "検索文字列入力時に順次対象文字列にヒット
 set wrapscan       "検索時に最後まで行ったら最初に戻る
 set hlsearch       "検索語をハイライト表示↲
 set pastetoggle=<F2> "ペーストモード切り替え
+nnoremap <ESC><ESC> :nohl<CR> "ハイライト削除
 
 
 "カーソルを表示行で移動する。物理行移動は<C-n>,<C-p>
