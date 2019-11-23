@@ -64,8 +64,12 @@ precmd () {
     PROMPT="${PROMPT} ${VPROMPT}"
   fi
   PROMPT="${PROMPT}]
-\$ "
-
+"
+  if [ "`id -u`" -eq 0 ]; then
+    PROMPT="${PROMPT}# "
+  else
+    PROMPT="${PROMPT}$ "
+  fi
 }
 
 
