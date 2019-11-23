@@ -25,7 +25,7 @@ tty=`tmux list-panes -F '#{pane_active} #{pane_tty}' | grep "1\ " | awk '{print 
 if [ "$(uname)" == 'Darwin' ]; then
   PID=`ps ao pid,tty,lstart | grep $tty | sort -k 6,6n -k 4,4 -k 5,5 | tail -n 1 | awk '{print $1}'`
 else
-  PID=`ps ao pid,tty,lstart | grep $tty | tail -n 1 | awk '{print $1}'`
+  PID=`ps ao pid,tty --sort=start_time | grep $tty | tail -n 1 | awk '{print $1}'`
 fi
 
 job=`ps alxc | awk -v ipid="${PID}" -v ppid=${PPID} -v pidi="${PIDI}" -v ppidi="${PPIDI}" -v commandi="${COMMANDI}" '
