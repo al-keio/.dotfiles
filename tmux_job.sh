@@ -21,11 +21,14 @@ do
   i=$((i + 1))
 done
 
-tty=`tmux list-panes -F '#{pane_active} #{pane_tty}' | grep "1\ " | awk '{print $2}'`
-tty=`basename $tty`
-PID=`ps | grep $tty | tail -n 1 | awk '{print $1}'`
+tty=`tmux list-panes -F '#{pane_active} #{pane_tty}' | grep "1\ " | awk '{print $2}' | sed -e 's/\/dev\///g'`
+if [ "$(uname)" == 'Darwin' ]; then
+  PID=`ps ao pid,tty,lstart | grep $tty | sort -k 6,6n -k 4,4 -k 5,5 | tail -n 1 | awk '{print $1}'`
+else
+  PID=`ps ao pid,tty,lstart | grep $tty | tail -n 1 | awk '{print $1}'`
+fi
 
-job=`ps alxc | awk -v ipid="${PID}" -v pidi="${PIDI}" -v ppidi="${PPIDI}" -v commandi="${COMMANDI}" '
+job=`ps alxc | awk -v ipid="${PID}" -v ppid=${PPID} -v pidi="${PIDI}" -v ppidi="${PPIDI}" -v commandi="${COMMANDI}" '
 {
     parent[$pidi]=$ppidi
     command[$pidi]=$commandi
@@ -33,17 +36,24 @@ job=`ps alxc | awk -v ipid="${PID}" -v pidi="${PIDI}" -v ppidi="${PPIDI}" -v com
 
 END{
     pid=ipid
+    i=1
     while(pid != 1 && pid != 0) {
       arrow=""
       if (pid != ipid) {
-        arrow=" <- "
+        arrow=" < "
       }
       cmd=command[pid]
       pid=parent[pid]
-      if (cmd == "tmux") {
+      if (cmd ~ "tmux") {
         break
       }
+      if (i == 4) {
+        printf(" <")
+        break
+      }
+      gsub("-", "", cmd)
       printf("%s%s", arrow, cmd)
+      i=i+1
     }
     print ""
 }
