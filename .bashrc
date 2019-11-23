@@ -1,3 +1,4 @@
+SHELL=`which bash`
 . ~/.dotfiles/others
 . ~/.dotfiles/gitprompt
 . ~/.dotfiles/git-completion.bash
