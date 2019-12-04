@@ -57,7 +57,7 @@ precmd () {
     PROMPT="${PROMPT}%B%F{magenta}$(__git_ps1 " (%s)")%f%b"
   fi
 
-  if [ -v VIRTUAL_ENV ]; then
+  if [ -n "$VIRTUAL_ENV" ]; then
     local VPROMPT="${VIRTUAL_ENV##*/}"
     local VPROMPT="%B%F{yellow}(pipenv: ${VPROMPT%-*})%f%b"
     #RPROMPT="${VPROMPT}"
