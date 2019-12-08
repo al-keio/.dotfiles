@@ -21,7 +21,8 @@ do
   i=$((i + 1))
 done
 
-tty=`tmux list-panes -F '#{pane_active} #{pane_tty}' | grep "1\ " | awk '{print $2}' | sed -e 's/\/dev\///g'`
+tty=`tmux list-windows -F '#{window_index} #{pane_tty}' | awk -v windowi=$1 '{if ($1 == windowi) print $2}' | sed -e 's/\/dev\///g'`
+
 if [ "$(uname)" == 'Darwin' ]; then
   PID=`ps ao pid,tty,lstart | grep $tty | sort -k 6,6n -k 4,4 -k 5,5 | tail -n 1 | awk '{print $1}'`
 else
