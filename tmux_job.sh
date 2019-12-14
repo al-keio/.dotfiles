@@ -29,7 +29,12 @@ else
   PID=`ps ao pid,tty --sort=start_time | grep $tty | tail -n 1 | awk '{print $1}'`
 fi
 
-job=`ps alxc | awk -v ipid="${PID}" -v ppid=${PPID} -v pidi="${PIDI}" -v ppidi="${PPIDI}" -v commandi="${COMMANDI}" '
+max=255
+if [[ $# > 1 ]]; then
+  max=$2
+fi
+
+job=`ps alxc | awk -v max="$max" -v ipid="${PID}" -v ppid=${PPID} -v pidi="${PIDI}" -v ppidi="${PPIDI}" -v commandi="${COMMANDI}" '
 {
     parent[$pidi]=$ppidi
     command[$pidi]=$commandi
@@ -48,7 +53,7 @@ END{
       if (cmd ~ "tmux") {
         break
       }
-      if (i == 4) {
+      if (i == max + 1) {
         printf(" <")
         break
       }
