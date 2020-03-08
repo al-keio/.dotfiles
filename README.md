@@ -1,14 +1,16 @@
 # .dotfiles
 dotfilesを管理  
-install.shの機能
-- dotfilesのシンボリックリンクをホームディレクトリに貼る
-- pecoのインストール
-- enhancdのインストール
-  - enhancdの設定済みinit.shを置換
 
-# 導入方法
+# Installation
 
 1. このレポジトリを"$HOME/.dotfiles"にクローンする
-2. install.shを実行
+  ```
+  $ git clone git@github.com:al-keio/.dotfiles.git ~/.dotfiles
+  ```
+2. インストール
+  ```
+  $ cd ~/.dotfiles
+  $ make
+  ```
 3. ~/.gitconfigのnameとemailを更新
 

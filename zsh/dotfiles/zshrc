@@ -1,11 +1,24 @@
-. ~/.dotfiles/gitprompt
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
 
-export TERM=xterm-256color
-# 色を使用出来るようにする
-autoload -Uz colors
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
 
-# emacs 風キーバインドにする
-bindkey -e
+# Customize to your needs...
+for f in ~/.dotfiles/init_files/*
+do
+  source $f
+done
+
+if [ -n "$LS_COLORS" ]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
@@ -39,44 +52,6 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
 
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-
-
-# gitの設定
-setopt PROMPT_SUBST
-setopt TRANSIENT_RPROMPT
-
-# プロンプト
-precmd () {
-  if [ "$(uname)" = 'Darwin' ]; then
-    PROMPT="[%B%F{green}%n%f%b@%B%F{red}Mac%f%b %F{cyan}%U%~%u%f"
-  else
-    PROMPT="[%B%F{green}%n%f%b@%B%F{red}%m%f%b %F{cyan}%U%~%u%f"
-  fi
-
-  if type "__git_ps1" > /dev/null 2>&1; then
-    PROMPT="${PROMPT}%B%F{magenta}$(__git_ps1 " (%s)")%f%b"
-  fi
-
-  if [ -n "$VIRTUAL_ENV" ]; then
-    local VPROMPT="${VIRTUAL_ENV##*/}"
-    local VPROMPT="%B%F{yellow}(pipenv: ${VPROMPT%-*})%f%b"
-    #RPROMPT="${VPROMPT}"
-    PROMPT="${PROMPT} ${VPROMPT}"
-  fi
-  PROMPT="${PROMPT}]
-"
-  if [ "`id -u`" -eq 0 ]; then
-    PROMPT="${PROMPT}# "
-  else
-    PROMPT="${PROMPT}$ "
-  fi
-}
-
-
-########################################
-# vcs_info
-autoload -Uz vcs_info
-autoload -Uz add-zsh-hook
 
 # オプション
 # 日本語ファイル名を表示可能にする

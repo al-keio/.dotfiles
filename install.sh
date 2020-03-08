@@ -9,15 +9,13 @@ do
   [[ "$f" == ".gitignore" ]] && continue
 
   ln -Fis "$PWD/$f" $HOME
-  echo "$f"
 done
 
 if [ ! -f ~/.gitconfig ]; then
-  cp -i "$PWD/gitconfig.tmp" $HOME/.gitconfig
+  cp -i "$HOME/.dotfiles/git/gitconfig.tmp" $HOME/.gitconfig
 fi
 
 mkdir -p "${HOME}/local/bin"
-ln -Fis "$PWD/mybin" "${HOME}/local"
 
 # pecoのインストール
 if ! type "peco" > /dev/null 2>&1; then
@@ -47,8 +45,8 @@ if ! type "peco" > /dev/null 2>&1; then
       if [ $? -eq 0 ]; then
         mkdir "${HOME}/.peco"
         tar -zxvf "${DL_DIR}.tar.gz" -C "${HOME}/.peco" --strip-components 1
-        ln -Fis "${HOME}/.peco/peco" "${HOME}/local/bin"
-        rm "${DL_DIR}.tar.gz"
+        cp "${HOME}/.peco/peco" "${HOME}/local/bin"
+        rm -rf "${DL_DIR}.tar.gz" .peco
       else
         echo "Couldn't install peco"
       fi

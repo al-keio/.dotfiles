@@ -1,7 +1,7 @@
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 "set termguicolors
 syntax on
-colorscheme molokai
+colorscheme iceberg
 set t_Co=256
 set bg=dark
 

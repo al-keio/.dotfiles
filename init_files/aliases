@@ -1,13 +1,4 @@
 #!/bin/sh
-# lsの設定
-if [ "$(uname)" = 'Darwin' ]; then
-  export LSCOLORS=gxcxfxdxbxegedabagacad
-  alias ls='ls -G'
-else
-  eval `dircolors $HOME/.colorrc`
-  alias ls='ls --color=auto'
-fi
-
 # clearコマンドを簡略化
 alias c="clear"
 

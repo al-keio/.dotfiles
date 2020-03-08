@@ -1,6 +1,6 @@
 #!/bin/sh
 
-IFTS=("fzf" "peco")
+IFTS=("peco" "fzf")
 
 for IFT in ${IFTS[@]}
 do
@@ -16,6 +16,7 @@ if [[ $IFT == "fzf" ]]; then
 fi
 
 if type "$IFT" > /dev/null 2>&1; then
-  . ~/.dotfiles/aliases_ift
+  source ~/.dotfiles/aliases_ift
+else
 fi
 

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# lsの設定
+if [ "$(uname)" = 'Darwin' ]; then
+  eval `gdircolors ~/.dotfiles/gochiusa.dircolors`
+  alias ls='gls --color=auto'
+else
+  eval `dircolors ~/.dotfiles/gochiusa.dircolors`
+  alias ls='ls --color=auto'
+fi
+

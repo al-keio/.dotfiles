@@ -5,6 +5,3 @@ if [ -d $HOME/.anyenv ]; then
   eval "$(anyenv init - --no-rehash)"
 fi
 
-#if type "pipenv" > /dev/null 2>&1; then
-#  eval "$(pipenv --completion)"
-#fi
