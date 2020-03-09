@@ -34,3 +34,6 @@ zstyle ':prompt:pure:prompt:success' color blue
 zinit ice wait'0' lucid
 zinit snippet $HOME/.dotfiles/zsh/local_plugins/anyenv-init.zsh
 
+zinit snippet 'https://raw.githubusercontent.com/sorin-ionescu/prezto/master/modules/completion/init.zsh'
+zinit snippet 'https://raw.githubusercontent.com/sorin-ionescu/prezto/master/modules/command-not-found/init.zsh'
+zinit light zdharma/fast-syntax-highlighting
