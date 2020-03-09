@@ -4,11 +4,9 @@ cd $(dirname $0)
 
 for f in .??*
 do
-  [[ "$f" == ".git" ]] && continue
   [[ "$f" == ".DS_Store" ]] && continue
-  [[ "$f" == ".gitignore" ]] && continue
 
-  ln -Fis "$PWD/$f" $HOME
+  ln -Fis "$PWD/$f" "$HOME"
 done
 
 if [ ! -f ~/.gitconfig ]; then
@@ -38,6 +36,8 @@ if ! type "peco" > /dev/null 2>&1; then
       DL_DIR="peco_linux_arm"
     elif [[ $ARCH == *"armv8"* ]]; then
       DL_DIR="peco_linux_arm64"
+    else
+      echo "Can not find the cpu architecture of peco" 1>&2
     fi
 
     if [ -n $DL_URL ]; then
@@ -48,7 +48,8 @@ if ! type "peco" > /dev/null 2>&1; then
         cp "${HOME}/.peco/peco" "${HOME}/local/bin"
         rm -rf "${DL_DIR}.tar.gz" .peco
       else
-        echo "Couldn't install peco"
+        echo "Can not download peco source" 1>&2
+        exit 1
       fi
     fi
   fi

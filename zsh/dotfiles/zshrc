@@ -1,30 +1,52 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+### Zinit
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 
-# Customize to your needs...
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-bin-gem-node
+
+# plugin file of zinit
+source "$HOME/.dotfiles/zsh/zinit_plugins"
+
+### End of Zinit
+
+# source init files
 for f in ~/.dotfiles/init_files/*
 do
   source $f
 done
 
+# タブ補完時にディレクトリ・ファイルを色付け
 if [ -n "$LS_COLORS" ]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
 
-# ヒストリの設定
+# emacs風のバインド
+bindkey -e
+
+### history
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 HISTTIMEFORMAT=%Y/%m/%d%H:%M:%S
+setopt share_history # 同時に起動したzshの間でヒストリを共有する
+setopt hist_ignore_all_dups # 同じコマンドをヒストリに残さない
+setopt hist_ignore_space # スペースから始まるコマンド行はヒストリに残さない
+setopt hist_reduce_blanks # ヒストリに保存するときに余分なスペースを削除する
+### end of history
 
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
@@ -40,7 +62,6 @@ zstyle ':zle:*' word-style unspecified
 autoload -Uz compinit
 compinit
 
-# 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # ../ の後は今いるディレクトリを補完しない
@@ -52,6 +73,7 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
 
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
+
 
 # オプション
 # 日本語ファイル名を表示可能にする
@@ -66,33 +88,11 @@ setopt no_flow_control
 # '#' 以降をコメントとして扱う
 setopt interactive_comments
 
-# ディレクトリ名だけでcdする
-setopt auto_cd
-
-# cd したら自動的にpushdする
-setopt auto_pushd
-# 重複したディレクトリを追加しない
-setopt pushd_ignore_dups
-
-# 同時に起動したzshの間でヒストリを共有する
-setopt share_history
-
-# 同じコマンドをヒストリに残さない
-setopt hist_ignore_all_dups
-
-# スペースから始まるコマンド行はヒストリに残さない
-setopt hist_ignore_space
-
-# ヒストリに保存するときに余分なスペースを削除する
-setopt hist_reduce_blanks
-
 # 高機能なワイルドカード展開を使用する
 setopt extended_glob
 
 # no nomatch
 setopt nonomatch
-########################################
-# キーバインド
 
 # ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
 bindkey '^R' history-incremental-pattern-search-backward

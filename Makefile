@@ -1,9 +1,9 @@
-all: except_shell
+all: etc zsh
 
-.PHONY: bash zsh fish
+.PHONY: etc zsh
 
-except_shell: 
-	./install.sh
+etc: 
+	etc/install.sh
 
 zsh:
 	zsh zsh/install.sh
