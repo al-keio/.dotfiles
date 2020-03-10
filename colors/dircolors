@@ -47,16 +47,16 @@ FILE 37
 # directory
 DIR 34
 # 777 directory
-OTHER_WRITABLE 34;40
+OTHER_WRITABLE 07;34
 # symbolic link
-LINK 35
+LINK 32
 
 # pipe, socket, block device, character device
-FIFO 37;44
-SOCK 35;44
-DOOR 35;44 # Solaris 2.5 and later
-BLK  33;44
-CHR  37;44
+FIFO 33
+SOCK 35
+DOOR 35 # Solaris 2.5 and later
+BLK  33
+CHR  33
 
 #############################################################################
 ### By file attributes
