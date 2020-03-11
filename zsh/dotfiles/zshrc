@@ -1,9 +1,3 @@
-# source init files
-for f in ~/.dotfiles/init_files/*
-do
-  source $f
-done
-
 # emacs風のバインド
 bindkey -e
 
@@ -74,6 +68,15 @@ setopt extended_glob
 # no nomatch
 setopt nonomatch
 
+# zinit plugin ファイル
+source $HOME/.dotfiles/zsh/zinit_plugins
+
+# source init files
+for f in ~/.dotfiles/init_files/*
+do
+  source $f
+done
+
 # ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
 bindkey '^R' history-incremental-pattern-search-backward
 
@@ -91,5 +94,3 @@ if type "$IFT" > /dev/null 2>&1; then
   bindkey '^R' ift-history-selection
 fi
 
-# zinit plugin ファイル
-source $HOME/.dotfiles/zsh/zinit_plugins

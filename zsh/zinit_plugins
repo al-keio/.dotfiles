@@ -9,7 +9,7 @@ if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
         print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 
-source "$HOME/.zinit/bin/zinit.zsh"
+source $HOME/.zinit/bin/zinit.zsh
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -35,9 +35,8 @@ zinit ice atload'!_zsh_git_prompt_precmd_hook' lucid \
   atload='source $HOME/.dotfiles/zsh/plugin_configs/woefe---git-prompt.zsh'
 zinit load woefe/git-prompt.zsh
 
-zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh' \
-  atload='source $HOME/.dotfiles/zsh/plugin_configs/mypure.zsh'
-zinit load $HOME/.dotfiles/zsh/local_plugins/mypure
+zinit ice atload='source $HOME/.dotfiles/zsh/plugin_configs/mypure.zsh'
+zinit snippet $HOME/.dotfiles/zsh/local_plugins/mypure.zsh
 
 zinit ice wait'2' lucid
 zinit snippet $HOME/.dotfiles/zsh/local_plugins/anyenv-init.zsh
