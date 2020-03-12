@@ -1,0 +1,7 @@
+[[ -n $TMUX ]] && \
+  echo "sessions should be nested with care, unset $TMUX to force" 1>&2 \
+  && return 1
+tmux list-sessions \
+  | anyframe-selector-auto \
+  | cut -d : -f 1 \
+  | anyframe-action-put tmux kill-session -t

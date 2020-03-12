@@ -25,16 +25,28 @@ zinit light-mode for \
   mafredri/zsh-async \
   zdharma/fast-syntax-highlighting
 
-zinit ice blockf atload='autoload -U compinit && compinit'
+zinit ice blockf atload'autoload -U compinit && compinit'
 zinit load zsh-users/zsh-completions
 
 zinit ice atload'!_zsh_git_prompt_precmd_hook' lucid \
-  atload='source $HOME/.dotfiles/zsh/plugin_configs/woefe---git-prompt.zsh'
+  atload'source $HOME/.dotfiles/zsh/plugin_configs/woefe---git-prompt.zsh'
 zinit load woefe/git-prompt.zsh
 
-zinit ice atload='source $HOME/.dotfiles/zsh/plugin_configs/mypure.zsh'
+zinit ice atload'source $HOME/.dotfiles/zsh/plugin_configs/mypure.zsh'
 zinit snippet $HOME/.dotfiles/zsh/local_plugins/mypure.zsh
 
 zinit ice wait'2' lucid
 zinit snippet $HOME/.dotfiles/zsh/local_plugins/anyenv-init.zsh
+
+zinit ice from"gh-r" as"program" \
+  atload'source $HOME/.dotfiles/zsh/plugin_configs/junegunn---fzf-bin.zsh'
+zinit load junegunn/fzf-bin
+
+zinit ice atinit'fpath=($HOME/.dotfiles/zsh/plugin_configs(N-/) $fpath)'\
+  atload'source $HOME/.dotfiles/zsh/plugin_configs/mollifier---anyframe.zsh'
+zinit light mollifier/anyframe
+
+zinit ice atclone'rm -rfd functions/' \
+  atload'source $HOME/.dotfiles/zsh/plugin_configs/b4b4r07---enhancd.zsh'
+zinit light b4b4r07/enhancd
 

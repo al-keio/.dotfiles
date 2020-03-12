@@ -1,3 +1,12 @@
+# source init files
+for f in ~/.dotfiles/init_files/*
+do
+  source $f
+done
+
+# zinit plugin ファイル
+source $HOME/.dotfiles/zsh/zinit_plugins
+
 # emacs風のバインド
 bindkey -e
 
@@ -67,30 +76,4 @@ setopt extended_glob
 
 # no nomatch
 setopt nonomatch
-
-# zinit plugin ファイル
-source $HOME/.dotfiles/zsh/zinit_plugins
-
-# source init files
-for f in ~/.dotfiles/init_files/*
-do
-  source $f
-done
-
-# ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
-bindkey '^R' history-incremental-pattern-search-backward
-
-if type "$IFT" > /dev/null 2>&1; then
-  function ift-history-selection() {
-    if [ "$(uname)" = 'Darwin' ]; then
-      BUFFER="`history -n 1 | tail -r  | awk '!a[$0]++' | $IFT`"
-    else
-      BUFFER=`history -n 1 | tac | awk '!a[$0]++' | $IFT`
-    fi
-    CURSOR=$#BUFFER
-  }
-
-  zle -N ift-history-selection
-  bindkey '^R' ift-history-selection
-fi
 

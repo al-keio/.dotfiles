@@ -1,0 +1,3 @@
+find $HOME/.ssh -type f -perm 600 -not -name config \
+  | anyframe-selector-auto \
+  | anyframe-action-put ssh-add

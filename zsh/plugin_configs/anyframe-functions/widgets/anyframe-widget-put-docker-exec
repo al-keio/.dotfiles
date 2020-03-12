@@ -1,0 +1,4 @@
+docker ps | awk 'NR>1 {print $1 "\t\t" $2 "\t\t" $NF}' \
+  | anyframe-selector-auto \
+  | awk '{print $1}' \
+  | anyframe-action-put docker exec -it
