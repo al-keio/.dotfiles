@@ -59,6 +59,9 @@ if [ -n "$LS_COLORS" ]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
 
+# 関数を補完しない
+zstyle ':completion:*:functions' ignored-patterns '*'
+
 ###
 
 # オプション
