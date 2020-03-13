@@ -1,0 +1,57 @@
+
+# my configs(.dotfiles)
+export TERM=xterm-256color
+
+# source init files
+for f in ~/.dotfiles/init_files/*
+do
+  source $f
+done
+
+# 履歴
+export HISTCONTROL=ignoreboth:erasedups
+HISTSIZE=5000
+HISTIGNORE="fg*:bg*:history*:exit"
+HISTTIMEFORMAT='%Y.%m.%d %T'
+
+if [ -d $HOME/.anyenv ]; then
+  export PATH="$HOME/.anyenv/bin:${PATH}"
+  eval "$(anyenv init - --no-rehash)"
+fi
+
+# プロンプト
+source $HOME/.dotfiles/git/git-prompt.sh
+source $HOME/.dotfiles/git/git-completion.bash
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM="verbose"
+GIT_PS1_DESCRIBE_STYLE="default"
+GIT_PS1_SHOWCOLORHINTS=1
+PROMPT="$"
+[ ${EUID:-${UID}} = 0 ] && PROMPT="#"
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;35m\] $(__git_ps1)\[\033[00m\]\n${PROMPT} '
+
+IFTS=("fzf" "peco")
+
+for IFT in ${IFTS[@]}
+do
+  if type "$IFT" > /dev/null 2>&1; then
+    export $IFT
+    break
+  fi
+done
+[[ $IFT == "fzf" ]] && export FZF_DEFAULT_OPTS='--exact --no-sort --ansi --reverse'
+
+if type "$IFT" > /dev/null 2>&1; then
+  function ift-history-selection() {
+    if [ "$(uname)" = 'Darwin' ]; then
+      READLINE_LINE=`history | awk '{$1=""; print}' | tail -r  | sed 's/^[ ]*//g' | $IFT`
+    else
+      READLINE_LINE=`history | awk '{$1=""; print}' | tac | sed 's/^[ ]*//g' | $IFT`
+    fi
+    READLINE_POINT=${#READLINE_LINE}
+  }
+
+  bind -x '"\C-r": ift-history-selection'
+fi

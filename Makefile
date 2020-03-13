@@ -1,9 +1,12 @@
 all: etc zsh
 
-.PHONY: etc zsh peco
+.PHONY: etc bash zsh peco
 
 etc: 
 	etc/install.sh
+
+bash:
+	bash bash/install.sh
 
 zsh:
 	zsh zsh/install.sh
