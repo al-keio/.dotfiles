@@ -25,7 +25,7 @@ zinit light-mode for \
   mafredri/zsh-async \
   zdharma/fast-syntax-highlighting
 
-zinit ice blockf atload'autoload -U compinit && compinit'
+zinit ice blockf
 zinit load zsh-users/zsh-completions
 
 zinit ice atload'!_zsh_git_prompt_precmd_hook' lucid \
