@@ -1,0 +1,59 @@
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+hook_add = '''
+  let g:gitgutter_signs = 1
+  let g:gitgutter_highlight_lines = 0
+  let g:gitgutter_highlight_linenrs = 1
+  set updatetime=50
+  set signcolumn=yes
+'''
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+  set encoding=UTF-8
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+
+[[plugins]]
+repo = 'dense-analysis/ale'
+hook_add = '''
+  let g:ale_sign_column_always = 1
+  let g:ale_fix_on_save = 1
+  let g:ale_open_list = 1
+  let g:ale_echo_msg_format = '[%linter%]%code: %%s'
+  let g:ale_lint_on_enter = 0
+  highlight clear ALEErrorSign
+  highlight clear ALEWarningSign
+  highlight link ALEErrorSign Tag
+  highlight link ALEWarningSign StorageClass
+  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-j> <Plug>(ale_next_wrap)
+'''
+
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+hook_add = '''
+  autocmd BufWritePre * :FixWhitespace
+'''
+
+[[plugins]]
+repo = 'jsfaint/gen_tags.vim'
+hook_add = '''
+  let g:gen_tags#ctags_auto_gen = 1
+  let g:gen_tags#gtags_auto_gen = 1
+  let g:gen_tags#ctags_auto_update = 1
+  let g:gen_tags#gtags_auto_update = 1
+'''

@@ -2,7 +2,7 @@ all: etc zsh
 
 .PHONY: etc bash zsh peco
 
-etc: 
+etc:
 	etc/install.sh
 
 bash:
