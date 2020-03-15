@@ -1,6 +1,6 @@
 non_zero () {
   rm -rf $TMP
-  echo "cannot install ctags" 1>&2
+  echo "cannot install ncurses" 1>&2
   exit 1
 }
 
@@ -12,14 +12,15 @@ do
   TMP="$HOME/tmp.${RAND}.build"
   [ ! -e $TMP ] && break
 done
-mkdir $TMP
+mkdir $TMP || non_zero
 cd $TMP
 
 # インストール
-git clone https://github.com/universal-ctags/ctags.git || non_zero
-cd ctags
-./autogen.sh || non_zero
-./configure --prefix=$HOME/local || non_zero
+cd $TMP
+wget ftp://ftp.gnu.org/gnu/ncurses/ncurses-6.1.tar.gz || non_zero
+tar zxf ncurses-6.1.tar.gz || non_zero
+cd ncurses-6.1
+./configure --enable-pc-files --prefix=${HOME}/local --with-pkg-config-libdir=${HOME}/local/lib/pkgconfig --with-termlib || non_zero
 make || non_zero
 make install || non_zero
 

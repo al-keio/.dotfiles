@@ -2,11 +2,12 @@
 
 cd $(dirname $0)
 
-for f in .??*
+for f in *
 do
   [[ "$f" == ".DS_Store" ]] && continue
+  [[ "$f" == "install.sh" ]] && continue
 
-  ln -Fis "$PWD/$f" "$HOME"
+  ln -Fisn "$PWD/$f" "$HOME/.$f"
 done
 
 if [ ! -f ~/.gitconfig ]; then

@@ -1,6 +1,6 @@
-all: etc zsh
+all: etc zsh vim
 
-.PHONY: etc bash zsh peco
+.PHONY: etc bash zsh
 
 etc:
 	etc/install.sh
@@ -11,5 +11,5 @@ bash:
 zsh:
 	zsh zsh/install.sh
 
-peco:
-	etc/install-peco.sh
+%.sh:
+	build_tools/$@

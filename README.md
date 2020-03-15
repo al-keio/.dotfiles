@@ -1,5 +1,5 @@
 # .dotfiles
-dotfilesを管理  
+dotfilesを管理
 
 # Installation
 
@@ -13,4 +13,23 @@ dotfilesを管理
   $ make
   ```
 3. ~/.gitconfigのnameとemailを更新
+
+# ツールのビルド
+ローカルでビルドする用のスクリプトを作った(root 権限が使えない時のため)
+
+別にパッケージマネージャでもいい
+- peco
+- ctags, gtags
+  - vim のコードジャンプで必要
+- tmux
+- libevent
+  - tmux で必要
+- ncurses
+  - tmux で必要
+  - ctag or gtag で必要
+
+### tmuxをビルドしたいなら
+```
+$ make tmux.sh
+```
 

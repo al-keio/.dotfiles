@@ -1,3 +1,4 @@
+#!/bin/bash
 # pecoのインストール
 if [ "$(uname)" = 'Darwin' ]; then
   brew install peco
