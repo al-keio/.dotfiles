@@ -51,6 +51,9 @@ nnoremap k gk
 nnoremap <Down> gj
 nnoremap <Up>   gk
 
+"マウスカーソルを受付
+set mouse=a
+
 "全角スペースをハイライト表示
 function! ZenkakuSpace()
   highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
@@ -59,7 +62,7 @@ if has('syntax')
   augroup ZenkakuSpace
     autocmd!
     autocmd ColorScheme       * call ZenkakuSpace()
-    autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    autocmd VimEnter,WinEnter,BufRead * let w:m1=matchadd('ZenkakuSpace', '　')
   augroup END
   call ZenkakuSpace()
 endif
