@@ -26,25 +26,10 @@ build = './install --all'
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
+depend = 'fzf'
 hook_add = '''
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', 'cat {}']}, <bang>0)
-'''
-
-[[plugins]]
-repo = 'dense-analysis/ale'
-hook_add = '''
-  let g:ale_sign_column_always = 1
-  let g:ale_fix_on_save = 1
-  let g:ale_open_list = 1
-  let g:ale_echo_msg_format = '[%linter%]%code: %%s'
-  let g:ale_lint_on_enter = 0
-  highlight clear ALEErrorSign
-  highlight clear ALEWarningSign
-  highlight link ALEErrorSign Tag
-  highlight link ALEWarningSign StorageClass
-  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-  nmap <silent> <C-j> <Plug>(ale_next_wrap)
 '''
 
 [[plugins]]
@@ -54,5 +39,30 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'jsfaint/gen_tags.vim'
+repo = 'prabirshrestha/async.vim'
 
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+depends = ['async.vim']
+hook_add = '''
+  let g:lsp_signs_enabled = 1
+  let g:lsp_diagnostics_echo_cursor = 1
+  let g:lsp_highlight_references_enabled = 1
+  highlight lspReference ctermfg=red guifg=red ctermbg=green guibg=green
+  nnoremap <C-]> :LspDefinition<CR>
+  nnoremap <C-[> :LspReference<CR>
+  nnoremap <C-j>s :LspPeekDefinition<CR>
+  nnoremap <C-j>r :LspRename<CR>
+  nnoremap <C-j>h :LspHover<CR>
+'''
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+depends = ['async.vim', 'vim-lsp']
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+depends = ['asyncomplete.vim', 'vim-lsp']

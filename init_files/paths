@@ -4,7 +4,7 @@ if [ "$(uname)" = 'Darwin' ]; then
   export PATH="/usr/local/opt/openssl/bin:$PATH"
 fi
 
-export PATH="$PATH:$HOME/local/bin:$HOME/local/mybin"
+export PATH="$HOME/local/bin:$PATH"
 export GOPATH="$HOME/go"
 
 export CURT_SHELL=`which $(ps -p $$ -o comm | awk 'NR==2' | sed 's/\-//g')`
