@@ -120,3 +120,13 @@ map <silent> [Tag]h :tabprevious<CR> " tp 前のタブ
 if filereadable(expand('~/.vim/dein.vim/vimrc.plugin'))
   source ~/.vim/dein.vim/vimrc.plugin
 endif
+
+" あれば，gtags.vimの設定を追加
+if filereadable(expand('~/.vim/plugin/gtags.vim'))
+  let g:Gtags_Auto_Map = 0
+  let g:Gtags_OpenQuickfixWindow = 1
+  " Keymap
+  nnoremap <C-j> :GtagsCursor<CR>
+  nnoremap <C-]> :Gtags <C-r><C-w><CR>
+  nnoremap <C-r> :<C-u>exe("Gtags -r ".expand('<cword>'))<CR>
+endif
