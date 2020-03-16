@@ -53,6 +53,7 @@ hook_add = '''
   let g:lsp_signs_enabled = 1
   let g:lsp_diagnostics_echo_cursor = 1
   let g:lsp_highlight_references_enabled = 1
+  let g:lsp_peek_alignment = "top"
   highlight lspReference ctermfg=red guifg=red ctermbg=green guibg=green
   nnoremap <C-]> :LspDefinition<CR>
   nnoremap <C-[> :LspReference<CR>
@@ -71,3 +72,15 @@ repo = 'prabirshrestha/asyncomplete.vim'
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
 depends = ['asyncomplete.vim', 'vim-lsp']
+hook_add = '''
+  set signcolumn=yes
+  autocmd FileType tagbar,nerdtree setlocal signcolumn=no
+  let g:asyncomplete_auto_popup = 1
+  let g:asyncomplete_popup_delay = 50
+  let g:lsp_highlight_references_enabled = 1
+  highlight lspReference ctermfg=red guifg=red ctermbg=green guibg=green
+'''
+
+[[plugins]]
+repo = 'mattn/vim-lsp-icons'
+depends = ['vimplsp']
