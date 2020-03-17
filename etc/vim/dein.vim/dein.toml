@@ -84,3 +84,7 @@ hook_add = '''
 [[plugins]]
 repo = 'mattn/vim-lsp-icons'
 depends = ['vimplsp']
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+
