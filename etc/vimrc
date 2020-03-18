@@ -74,6 +74,9 @@ nnoremap <Up>   gk
 "マウスカーソルを受付
 set mouse=a
 
+" ヤンクした時にクリップボードにもコピー
+set clipboard+=unnamed
+
 "全角スペースをハイライト表示
 function! ZenkakuSpace()
   highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
