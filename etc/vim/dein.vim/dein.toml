@@ -4,6 +4,7 @@ repo = 'tpope/vim-fugitive'
 #[[plugins]]
 #repo = 'airblade/vim-gitgutter'
 #hook_add = '''
+#  set signcolumn=yes
 #  let g:gitgutter_sign_added = '++'
 #  let g:gitgutter_sign_modified = '~~'
 #  let g:gitgutter_sign_removed = '__'
@@ -50,16 +51,25 @@ repo = 'prabirshrestha/async.vim'
 repo = 'prabirshrestha/vim-lsp'
 depends = ['async.vim']
 hook_add = '''
-  let g:lsp_signs_enabled = 1
+  set signcolumn=yes
+  let g:lsp_signs_enabled = 0
+  let g:lsp_diagnostics_enabled = 1
   let g:lsp_diagnostics_echo_cursor = 1
   let g:lsp_highlight_references_enabled = 1
-  let g:lsp_peek_alignment = "top"
-  highlight lspReference ctermfg=red guifg=red ctermbg=green guibg=green
+  let g:lsp_highlights_enabled = 1
+  let g:lsp_textprop_enabled = 1
+
+  " コマンド
   nnoremap <C-]> :LspDefinition<CR>
   nnoremap <C-[> :LspReference<CR>
   nnoremap <C-j>s :LspPeekDefinition<CR>
   nnoremap <C-j>r :LspRename<CR>
   nnoremap <C-j>h :LspHover<CR>
+  nnoremap <C-j>d :LspDocumentDiagnostics<CR>
+
+  " 色
+  autocmd ColorScheme * highlight lspReference ctermfg=222 guifg=#d9c767 ctermbg=65 guibg=#344134
+  highlight link LspErrorHighlight ErrorMsg
 '''
 
 [[plugins]]
@@ -73,18 +83,8 @@ repo = 'prabirshrestha/asyncomplete.vim'
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
 depends = ['asyncomplete.vim', 'vim-lsp']
 hook_add = '''
-  set signcolumn=yes
   autocmd FileType tagbar,nerdtree setlocal signcolumn=no
   let g:asyncomplete_auto_popup = 1
-  let g:asyncomplete_popup_delay = 50
-  let g:lsp_highlight_references_enabled = 1
-  highlight lspReference ctermfg=red guifg=red ctermbg=green guibg=green
+  let g:asyncomplete_popup_delay = 100
 '''
-
-[[plugins]]
-repo = 'mattn/vim-lsp-icons'
-depends = ['vimplsp']
-
-[[plugins]]
-repo = 'cohama/lexima.vim'
 
