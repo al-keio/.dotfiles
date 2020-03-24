@@ -6,6 +6,7 @@ fi
 
 export PATH="$HOME/local/bin:$PATH"
 export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
 
 export CURT_SHELL=`which $(ps -p $$ -o comm | awk 'NR==2' | sed 's/\-//g')`
 export CURT_SHELL_BPATH=`basename $CURT_SHELL`
