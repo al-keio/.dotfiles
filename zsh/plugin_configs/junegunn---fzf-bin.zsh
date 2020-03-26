@@ -1,1 +1,1 @@
-export FZF_DEFAULT_OPTS='--exact --no-sort --ansi --reverse'
+export FZF_DEFAULT_OPTS='--exact --ansi --reverse'
