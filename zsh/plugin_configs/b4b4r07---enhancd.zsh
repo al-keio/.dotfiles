@@ -15,9 +15,9 @@ ENHANCD_USE_FUZZY_MATCH=0
 
 function cd () {
   case $1 in
-    $ENHANCD_DOT_ARG) __enhancd::cd $ENHANCD_DOT_ARG && ls;;
-    $ENHANCD_HYPHEN_ARG) __enhancd::cd $ENHANCD_HYPHEN_ARG && ls;;
-    *) __enhancd::cd::builtin $1 && ls;;
+    $ENHANCD_DOT_ARG) __enhancd::cd $ENHANCD_DOT_ARG;;
+    $ENHANCD_HYPHEN_ARG) __enhancd::cd $ENHANCD_HYPHEN_ARG;;
+    *) __enhancd::cd::builtin $1;;
   esac
 }
 
