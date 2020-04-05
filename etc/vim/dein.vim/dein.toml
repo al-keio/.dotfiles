@@ -84,8 +84,19 @@ repo = 'prabirshrestha/asyncomplete-lsp.vim'
 depends = ['asyncomplete.vim', 'vim-lsp']
 hook_add = '''
   autocmd FileType tagbar,nerdtree setlocal signcolumn=no
-  let g:asyncomplete_auto_popup = 1
   let g:asyncomplete_popup_delay = 100
+  let g:asyncomplete_auto_popup = 0
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 '''
 
 [[plugins]]
@@ -103,3 +114,33 @@ hook_add = '''
   augroup END
 '''
 
+[[plugins]]
+repo = 'tell-k/vim-autopep8'
+hook_add = '''
+  function! Preserve(command)
+    " Save the last search.
+    let search = @/
+    " Save the current cursor position.
+    let cursor_position = getpos('.')
+    " Save the current window position.
+    normal! H
+    let window_position = getpos('.')
+    call setpos('.', cursor_position)
+    " Execute the command.
+    execute a:command
+    " Restore the last search.
+    let @/ = search
+    " Restore the previous window position.
+    call setpos('.', window_position)
+    normal! zt
+    " Restore the previous cursor position.
+    call setpos('.', cursor_position)
+  endfunction
+
+  function! Autopep8()
+      call Preserve(':silent %!autopep8 -')
+  endfunction
+
+  " Shift + F で自動修正
+  autocmd FileType python nnoremap <S-f> :call Autopep8()<CR>
+'''
