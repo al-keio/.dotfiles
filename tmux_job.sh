@@ -24,9 +24,9 @@ done
 tty=`tmux list-windows -F '#{window_index} #{pane_tty}' | awk -v windowi=$1 '{if ($1 == windowi) print $2}' | sed -e 's/\/dev\///g'`
 
 if [ "$(uname)" == 'Darwin' ]; then
-  PID=`ps ao pid,tty,lstart,stat | grep -E "$tty.*\+\s*$" | sort -k 6,6n -k 4,4 -k 5,5 | tail -n 1 | awk '{print $1}'`
+  PID=`ps ao pid,tty,lstart,stat | grep -E "$tty\s.*\+\s*$" | sort -k 6,6n -k 4,4 -k 5,5 | tail -n 1 | awk '{print $1}'`
 else
-  PID=`ps ao pid,tty,stat --sort=start_time | grep -E "$tty.*\+\s*$" | tail -n 1 | awk '{print $1}'`
+  PID=`ps ao pid,tty,stat --sort=start_time | grep -E "$tty\s.*\+\s*$" | tail -n 1 | awk '{print $1}'`
 fi
 
 max=255
