@@ -5,8 +5,12 @@ rm -rf "$HOME/.zinit"
 for rcfile in "$HOME"/.dotfiles/zsh/dotfiles/*; do
   rm -f "$HOME/.${rcfile:t}"
 done
+rm -f $HOME/.zcompdump
+rm -rf $HOME/.enhancd
 
 # 元のファイルに復元
-for rcfile in "$TMP"/*; do
-  cp rcfile $HOME
+for rcfile in "$TMP"/.*; do
+  cp ${rcfile} $HOME
 done
+
+rm -rf $TMP

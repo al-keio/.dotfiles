@@ -1,4 +1,4 @@
-all: etc zsh vim
+all: etc bash zsh
 
 .PHONY: etc bash zsh
 
@@ -6,7 +6,7 @@ etc:
 	etc/install.sh
 
 etc_clean:
-	etc/install.sh
+	etc/uninstall.sh
 
 bash:
 	bash bash/install.sh
@@ -20,8 +20,4 @@ zsh:
 zsh_clean:
 	zsh zsh/uninstall.sh
 
-%.sh:
-	build_tools/$@
-
-clean:
-	etc_clean bash_clean zsh_clean
+clean: etc_clean bash_clean zsh_clean

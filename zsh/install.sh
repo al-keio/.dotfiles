@@ -8,7 +8,8 @@ setopt EXTENDED_GLOB
 mkdir -p $TMP
 
 for rcfile in "$HOME"/.dotfiles/zsh/dotfiles/*; do
-  cp "$HOME/.${rcfile:t}" $TMP # 元のファイルを退避
+  [[ -e $HOME/.${rcfile:t} ]] && [[ ! -L $HOME/.${rcfile:t} ]] && mv "$HOME/.${rcfile:t}" $TMP # 元のファイルを退避
+  [[ -L $HOME/.${rcfile:t} ]] && rm "$HOME/.${rcfile:t}"
   ln -is "$rcfile" "$HOME/.${rcfile:t}"
 done
 
