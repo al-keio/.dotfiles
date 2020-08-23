@@ -150,8 +150,8 @@ map <silent> [Tag]c :tablast <bar> tabnew<CR> " tc 新しいタブを一番右�
 map <silent> [Tag]l :tabnext<CR> " tn 次のタブ
 map <silent> [Tag]h :tabprevious<CR> " tp 前のタブ
 
-if filereadable(expand('~/.vim/dein.vim/vimrc.plugin'))
-  source ~/.vim/dein.vim/vimrc.plugin
-endif
+"if filereadable(expand('~/.vim/dein.vim/vimrc.plugin'))
+"  source ~/.vim/dein.vim/vimrc.plugin
+"endif
 
 
