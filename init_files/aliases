@@ -52,5 +52,5 @@ EOS
 
 
 # vscodeをコマンドラインから実行
-lanch-vscode () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
+launch-vscode () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
 alias vscode="launch-vscode"
