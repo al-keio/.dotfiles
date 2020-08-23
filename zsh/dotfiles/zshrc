@@ -83,3 +83,4 @@ setopt extended_glob
 # no nomatch
 setopt nonomatch
 
+export PATH="$PATH:$HOME/local/flutter/bin"
