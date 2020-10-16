@@ -14,7 +14,7 @@ dotfilesを管理
   ```
 3. ~/.gitconfigのnameとemailを更新
 
-# ツールのビルド
+# build_tools/
 ローカルでビルドする用のスクリプトを作った(root 権限が使えない時のため)
 
 別にパッケージマネージャでもいい
@@ -27,6 +27,9 @@ dotfilesを管理
 - ncurses
   - tmux で必要
   - ctag or gtag で必要
+
+# scripts/
+- スクリプトを管理
 
 ### tmuxをビルドしたいなら
 ```
