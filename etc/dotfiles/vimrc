@@ -4,25 +4,26 @@ if filereadable("/usr/share/vim/vimrc")
 endif
 
 " Configuration file for vim
-set modelines=0		" CVE-2007-2438
+set modelines=0   " 多分入れるべき
 
 " Normally we use vim-extensions. If you want true vi-compatibility
 " remove change the following statements
-set nocompatible	" Use Vim defaults instead of 100% vi compatibility
-set backspace=2		" more powerful backspacing
+set nocompatible  " vi の互換性を消す
+set backspace=2   " 最強のバックスペース
 
 " Don't write backup file if vim is being called by "crontab -e"
 au BufWrite /private/tmp/crontab.* set nowritebackup nobackup
 " Don't write backup file if vim is being called by "chpass"
 au BufWrite /private/etc/pw.* set nowritebackup nobackup
 
-let skip_defaults_vim=1
+let skip_defaults_vim=1 " $VIMRUNTIME/defaults.vimを読み込まない
 
-syntax on
-colorscheme darcula
-set termguicolors
-set t_Co=256
-set bg=dark
+" 色関連
+syntax on           " シンタックスハイライトを有効
+colorscheme darcula " カラースキーム
+set termguicolors   " true colorを使えるようにする
+set t_Co=256        " 256色を使う
+set bg=dark         " 背景色
 
 "タブ/インデントの設定
 set expandtab     " タブ入力を複数の空白入力に置き換える
@@ -150,8 +151,8 @@ map <silent> [Tag]c :tablast <bar> tabnew<CR> " tc 新しいタブを一番右�
 map <silent> [Tag]l :tabnext<CR> " tn 次のタブ
 map <silent> [Tag]h :tabprevious<CR> " tp 前のタブ
 
+" プラグインマネージャ(dein.vim)の読み込み
 "if filereadable(expand('~/.vim/dein.vim/vimrc.plugin'))
 "  source ~/.vim/dein.vim/vimrc.plugin
 "endif
-
 
