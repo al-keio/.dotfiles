@@ -33,3 +33,10 @@ dotfilesを管理
 $ make tmux.sh
 ```
 
+# Uninstall
+- 詳しくはMakefileを見て察して
+```
+$ make clean
+      or
+$ make *_clean
+```

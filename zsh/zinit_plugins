@@ -21,31 +21,39 @@ zinit light-mode for \
     zinit-zsh/z-a-bin-gem-node
 ### End of Zinit
 
+# 非同期のやつとタイポをわかりやすく表示するやつ
 zinit light-mode for \
   mafredri/zsh-async \
   zdharma/fast-syntax-highlighting
 
+# 補完
 zinit ice blockf
 zinit load zsh-users/zsh-completions
 
+# git情報をプロンプトに表示(非同期)
 zinit ice atload'!_zsh_git_prompt_precmd_hook' lucid \
   atload'source $HOME/.dotfiles/zsh/plugin_configs/woefe---git-prompt.zsh'
 zinit load woefe/git-prompt.zsh
 
+# プロンプトの見た目
 zinit ice atload'source $HOME/.dotfiles/zsh/plugin_configs/mypure.zsh'
 zinit snippet $HOME/.dotfiles/zsh/local_plugins/mypure.zsh
 
+# anyenvを使えるようにしたり，補完したりする
 zinit ice wait'2' lucid
 zinit snippet $HOME/.dotfiles/zsh/local_plugins/anyenv-init.zsh
 
+# fzf
 zinit ice from"gh-r" as"program" \
   atload'source $HOME/.dotfiles/zsh/plugin_configs/junegunn---fzf-bin.zsh'
 zinit load junegunn/fzf-bin
 
+# fzfを強化するためのやつ
 zinit ice atinit'fpath=($HOME/.dotfiles/zsh/plugin_configs(N-/) $fpath)'\
   atload'source $HOME/.dotfiles/zsh/plugin_configs/mollifier---anyframe.zsh'
 zinit light mollifier/anyframe
 
+# ディレクトリ履歴をfzfに表示
 zinit ice atclone'rm -rfd functions/' \
   atload'source $HOME/.dotfiles/zsh/plugin_configs/b4b4r07---enhancd.zsh'
 zinit light b4b4r07/enhancd
