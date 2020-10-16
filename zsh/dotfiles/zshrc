@@ -84,3 +84,8 @@ setopt extended_glob
 setopt nonomatch
 
 export PATH="$PATH:$HOME/local/flutter/bin"
+
+# コマンド終了時にslackに通知
+if [ -e $HOME/.dotfiles/zsh/etc/notify.zsh ]; then
+  source $HOME/.dotfiles/zsh/etc/notify.zsh
+fi
