@@ -20,6 +20,16 @@ function notify_preexec {
 function notify_precmd {
   notif_status=$?
   if [ -n "${SLACK_WEBHOOK_URL}" ] && [ $TTYIDLE -gt ${SLACK_NOTIF_THRESHOLD:-180} ] && [ $notif_status -ne 130 ] && [ $notif_status -ne 146 ]; then
+    local elapsed_time
+    tty_idle=${TTYIDLE}
+    local days=$(( ${tty_idle} / 60 / 60 / 24 ))
+    local hours=$(( ${tty_idle} / 60 / 60 % 24 ))
+    local minutes=$(( ${tty_idle} / 60 % 60 ))
+    local seconds=$(( ${tty_idle} % 60 ))
+    (( days > 0 )) && elapsed_time+="${days}d "
+    (( hours > 0 )) && elapsed_time+="${hours}h "
+    (( minutes > 0 )) && elapsed_time+="${minutes}m "
+    elapsed_time+="${seconds}s"
     notif_title=$([ $notif_status -eq 0 ] && echo "Command succeeded :smile:" || echo "Command failed :innocent:")
     notif_color=$([ $notif_status -eq 0 ] && echo "good" || echo "danger")
     notif_icon=$([ $notif_status -eq 0 ] && echo ":desktop_computer:" || echo ":desktop_computer:")
@@ -44,23 +54,23 @@ function notify_precmd {
           "short": false
         },
         {
-          "title": "hostname",
-          "value": "$(hostname)",
+          "title": "user",
+          "value": "\\\`$(whoami)\\\`",
           "short": true
         },
         {
-          "title": "user",
-          "value": "$(whoami)",
+          "title": "hostname",
+          "value": "\\\`$(hostname)\\\`",
           "short": true
         },
         {
           "title": "executed at",
-          "value": "$notif_prev_executed_at",
+          "value": "\\\`$notif_prev_executed_at\\\`",
           "short": true
         },
         {
           "title": "elapsed time",
-          "value": "$TTYIDLE seconds",
+          "value": "\\\`${elapsed_time}\\\`",
           "short": true
         }
       ]
