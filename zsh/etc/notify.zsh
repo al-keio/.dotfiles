@@ -2,14 +2,17 @@
 # https://qiita.com/izumin5210/items/c683cb6addc58cae59b6
 # 同じディレクトリに.tmpを抜いたファイル名にコピーして使用すること
 
-# 設定変数
-# url
-SLACK_WEBHOOK_URL=
-# コマンドの起動時間何秒以上で通知するか(デフォルト: 180秒)
-SLACK_NOTIF_THRESHOLD=
+# 設定変数読み込み(ない場合はテンプレートからコピー)
+FILE_DIR=`dirname $0`
+if [ ! -e ${FILE_DIR}/notify.env ]; then
+  cp ${FILE_DIR}/notify.env.tmpl ${FILE_DIR}/notify.env
+  echo "notify.zsh: notify env file copied"
+fi
+source ${FILE_DIR}/notify.env
 
 if [ -z "${SLACK_WEBHOOK_URL}" ]; then
-  echo "SLACK_WEBHOOK_URL is empty !!!"
+  echo "notify.zsh: SLACK_WEBHOOK_URL is empty !!!"
+  echo "Edit 'SLACK_WEBHOOK_URL' or set 'SLACK_NOTIF_DISABLED' to any value at '${FILE_DIR}/notify.env'"
 fi
 
 function notify_preexec {
@@ -19,7 +22,7 @@ function notify_preexec {
 
 function notify_precmd {
   notif_status=$?
-  if [ -n "${SLACK_WEBHOOK_URL}" ] && [ $TTYIDLE -gt ${SLACK_NOTIF_THRESHOLD:-180} ] && [ $notif_status -ne 130 ] && [ $notif_status -ne 146 ]; then
+  if [ -n "${SLACK_WEBHOOK_URL}" ] && [ $TTYIDLE -gt ${SLACK_NOTIF_THRESHOLD:-180} ] && [ $notif_status -ne 130 ] && [ $notif_status -ne 146 ] && [ -z ${SLACK_NOTIF_DISABLED} ]; then
     local elapsed_time
     tty_idle=${TTYIDLE}
     local days=$(( ${tty_idle} / 60 / 60 / 24 ))
@@ -84,7 +87,7 @@ EOS
       --data "$(echo "$payload" | tr '\n' ' ' | tr -s ' ')" \
       $SLACK_WEBHOOK_URL -s > /dev/null
 
-    echo "notifier: notify slack"
+    echo "notify.zsh: notify slack"
     echo ""
   fi
 }
