@@ -22,7 +22,21 @@ function notify_preexec {
 
 function notify_precmd {
   notif_status=$?
-  if [ -n "${SLACK_WEBHOOK_URL}" ] && [ $TTYIDLE -gt ${SLACK_NOTIF_THRESHOLD:-180} ] && [ $notif_status -ne 130 ] && [ $notif_status -ne 146 ] && [ -z ${SLACK_NOTIF_DISABLED} ]; then
+
+  [[ -z $notif_prev_command ]] && return # 起動時は通知しない(preexecで定義される変数で判断)
+
+  ### デタッチされたtmuxセッション上でコマンドが終了したら問答無用で通知
+  # 現在のセッションがデタッチされているか(attach: 0，detach: 1)
+  local on_detached_tmux_session
+  if [ -z $TMUX ]; then
+    # tmuxのセッションにいない時
+    on_detached_tmux_session=0
+  else
+    local tmux_session_name=`tmux display-message -p '#S'` # 現在のセッション名
+    on_detached_tmux_session=`tmux ls -F "#{session_name}: #{session_attached}" | grep "${tmux_session_name}: 0" | wc -l`
+  fi
+
+  if [ -n "${SLACK_WEBHOOK_URL}" ] && [ $TTYIDLE -gt ${SLACK_NOTIF_THRESHOLD:-180} -o $on_detached_tmux_session -eq 1 ] && [ $notif_status -ne 130 ] && [ $notif_status -ne 146 ] && [ -z ${SLACK_NOTIF_DISABLED} ]; then
     local elapsed_time
     tty_idle=${TTYIDLE}
     local days=$(( ${tty_idle} / 60 / 60 / 24 ))
