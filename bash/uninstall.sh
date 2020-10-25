@@ -1,16 +1,8 @@
-TMP="$HOME/.dotfiles/bash/tmp"
+#!/bin/bash
+set -e
 
-# install時の追加ファイルの削除
-for rcfile in "$HOME"/.dotfiles/bash/dotfiles/*; do
-  rcfile=$(basename ${rcfile})
-  rm -f "$HOME/.${rcfile:t}"
-done
+TARGET=$1
+REPO_ROOT=$2
 
-# 元のファイルに復元
-for rcfile in "$HOME"/.dotfiles/bash/tmp/.*; do
-  [[ "$(basename $rcfile)" == "." ]] && continue
-  [[ "$(basename $rcfile)" == ".." ]] && continue
-  cp ${rcfile} $HOME
-done
+source "${REPO_ROOT}/src/lib.sh"
 
-rm -rf $TMP

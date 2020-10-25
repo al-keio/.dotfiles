@@ -1,24 +1,14 @@
 #!/bin/bash
+set -e
 
-TMP="$HOME/.dotfiles/etc/tmp" # 退避用ディレクトリ
-mkdir -p $TMP
+TARGET=$1
+REPO_ROOT=$2
 
-cd $(dirname $0)/dotfiles
+source "${REPO_ROOT}/src/lib.sh"
 
-for f in *
-do
-  [[ "$f" == ".DS_Store" ]] && continue
-  [[ "$f" == "install.sh" ]] && continue
-
-  # 元のファイルを退避
-  [[ -e $HOME/.$f ]] && [[ ! -L $HOME/.$f ]] && mv "$HOME/.$f" $TMP
-  [[ -L $HOME/.$f ]] && rm "$HOME/.$f"
-  ln -Fisn "$PWD/$f" "$HOME/.$f"
-done
-
+print_title_debug "create gitconfig"
 if [ ! -f ~/.gitconfig ]; then
+  set -x
   cp -i "$HOME/.dotfiles/git/gitconfig.tmp" $HOME/.gitconfig
 fi
-
-mkdir -p "${HOME}/local/bin"
 

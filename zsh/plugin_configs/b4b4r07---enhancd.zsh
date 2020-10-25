@@ -1,4 +1,4 @@
-#ENHANCD_DIR=
+ENHANCD_DIR=$HOME/.dotfiles/cache/zsh/enhancd     # TODO: ハードコードやめたい
 ENHANCD_FILTER="fzf:peco"
 ENHANCD_COMMAND=ecd
 #ENHANCD_DISABLE_DOT=
