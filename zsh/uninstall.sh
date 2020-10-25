@@ -1,16 +1,8 @@
-TMP="$HOME/.dotfiles/zsh/tmp"
-rm -rf "$HOME/.zinit"
+#!/bin/zsh
+set -e
 
-# install時の追加ファイルの削除
-for rcfile in "$HOME"/.dotfiles/zsh/dotfiles/*; do
-  rm -f "$HOME/.${rcfile:t}"
-done
-rm -f $HOME/.zcompdump
-rm -rf $HOME/.enhancd
+TARGET=$1
+REPO_ROOT=$2
 
-# 元のファイルに復元
-for rcfile in "$TMP"/.*; do
-  cp ${rcfile} $HOME
-done
+source "${REPO_ROOT}/src/lib.sh"
 
-rm -rf $TMP

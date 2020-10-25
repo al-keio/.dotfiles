@@ -41,5 +41,5 @@ $ make tmux.sh
 ```
 $ make clean
       or
-$ make *_clean
+$ make clean-*
 ```

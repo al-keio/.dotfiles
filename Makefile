@@ -1,23 +1,23 @@
+# Makefileのあるディレクトリ = repository root
+ABS_MAKE := $(abspath $(lastword $(MAKEFILE_LIST)))
+REPO_ROOT := $(shell echo $(ABS_MAKE) | sed -e "s/\/Makefile//g")
+
 all: etc bash zsh
 
 .PHONY: etc bash zsh
 
-etc:
-	etc/install.sh
+etc bash zsh:
+	@echo
+	$@/install.sh $@ ${REPO_ROOT}
+	@echo
+	src/install.sh $@ ${REPO_ROOT}
 
-etc_clean:
-	etc/uninstall.sh
+clean-etc clean-bash clean-zsh:
+	@echo
+	$(eval TARGET := $(subst clean-,,$@))
+	$(TARGET)/uninstall.sh $(TARGET) ${REPO_ROOT}
+	@echo
+	src/uninstall.sh $(TARGET) ${REPO_ROOT}
 
-bash:
-	bash bash/install.sh
+clean: clean-etc clean-bash clean-zsh
 
-bash_clean:
-	bash bash/uninstall.sh
-
-zsh:
-	zsh zsh/install.sh
-
-zsh_clean:
-	zsh zsh/uninstall.sh
-
-clean: etc_clean bash_clean zsh_clean
