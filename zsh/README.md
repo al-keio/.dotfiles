@@ -1,19 +1,12 @@
 # zsh dotfiles
 - zinitというプラグインマネージャーを使っている
-## dotfiles/
+## dotfiles
 - rcfilesが入っている
-## local_plugins/
+## local_plugins
 - 自作(orカスタム)プラグインが入っている
-## pulugin_configs/
+## pulugin_configs
 - プラグインの設定ファイルが入っている
 - プラグインごとにファイルを分割
-## install.sh
-- `./dotfiles/*`へのエイリアスをホームディレクトリに作成
-- `./tmp`にホームディレクトリの既存ファイルを退避
-## uninstal.sh
-- install.shの逆
-- ホームディレクトリのエイリアスを削除
-- `./tmp`の退避ファイルをホームディレクトリに戻す
 ## zinit_plugins
 - zinitの設定が書いてある
 - zinitの初期化

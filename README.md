@@ -1,45 +1,68 @@
 # .dotfiles
 dotfilesを管理
 
-# Installation
+# 使い方
+## インストール
 
-1. このレポジトリを"$HOME/.dotfiles"にクローンする
-  ```
-  $ git clone git@github.com:al-keio/.dotfiles.git ~/.dotfiles
-  ```
+1. このレポジトリを"$HOME/.dotfiles"にクローンする  
+```
+# ハードコーディングしているので`~/.dotfiles`にクローンすること
+$ git clone git@github.com:al-keio/.dotfiles.git ~/.dotfiles
+```
 2. インストール
-  ```
-  $ cd ~/.dotfiles
-  $ make
-  ```
+```
+# リポジトリルートへ移動
+$ cd ~/.dotfiles
+
+# ホームディレクトリにある既存dotfileを退避
+# ホームディレクトリにこのリポジトリが用意したdotfileのシンボリックリンクを作成
+$ make
+
+# 特定のファイル群だけ設定も可
+$ make etc
+$ make bash
+$ make zsh
+```
 3. ~/.gitconfigのnameとemailを更新
 
-# build_tools/
+## アンインストール
+```
+# install時に作成したシンボリックリンクを削除
+# install時に退避したdotfileをホームディレクトリに復元
+$ make clean
+
+# 特定のファイル群だけ設定も可
+$ make clean-etc
+$ make clean-bash
+$ make clean-zsh
+```
+
+# ディレクトリ詳細
+## *sh
+シェルの設定ファイル等
+
+## etc
+シェル以外の設定ファイル等
+- tmux
+- vim
+今後増えたらvimは分割してもいいかも？
+
+## init_files
+*sh共通の設定
+
+## colors
+itermのカラースキーム  
+他人のを少し改造したのは入れている
+
+## git
+補完とgit設定ファイル
+
+## build_tools
 ローカルでビルドする用のスクリプトを作った(root 権限が使えない時のため)
 
-別にパッケージマネージャでもいい
-- peco
-- ctags, gtags
-  - vim のコードジャンプで必要
-- tmux
-- libevent
-  - tmux で必要
-- ncurses
-  - tmux で必要
-  - ctag or gtag で必要
+## src
+install・uninstallするためのスクリプトorライブラリ
 
-# scripts/
-- スクリプトを管理
+## scripts
+スクリプトを管理
 
-### tmuxをビルドしたいなら
-```
-$ make tmux.sh
-```
-
-# Uninstall
-- 詳しくはMakefileを見て察して
-```
-$ make clean
-      or
-$ make clean-*
-```
