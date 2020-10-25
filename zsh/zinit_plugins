@@ -32,14 +32,14 @@ zinit light-mode for \
   mafredri/zsh-async \
   zdharma/fast-syntax-highlighting
 
-# 補完
-zinit ice blockf
-zinit load zsh-users/zsh-completions
-
 # git情報をプロンプトに表示(非同期)
 zinit ice atload'!_zsh_git_prompt_precmd_hook' lucid \
   atload'source $HOME/.dotfiles/zsh/plugin_configs/woefe---git-prompt.zsh'
 zinit load woefe/git-prompt.zsh
+
+# git rootからのcd
+zinit ice atload'alias cdg="cd-gitroot"'
+zinit load mollifier/cd-gitroot
 
 # プロンプトの見た目
 zinit ice atload'source $HOME/.dotfiles/zsh/plugin_configs/mypure.zsh'
@@ -65,3 +65,6 @@ zinit ice atclone'rm -rfd functions/' \
   atinit'source $HOME/.dotfiles/zsh/plugin_configs/b4b4r07---enhancd.zsh'
 zinit light b4b4r07/enhancd
 
+# 補完
+zinit wait lucid atload"zicompinit; zicdreplay" blockf for \
+  zsh-users/zsh-completions

@@ -32,9 +32,9 @@ zstyle ':zle:*' word-style unspecified
 
 ### 補完
 # 補完機能を有効にする
-# TODO: ハードコードやめたい
-autoload -Uz compinit -d $HOME/.dotfiles/cache/zsh/zcompdump && compinit -d $HOME/.dotfiles/cache/zsh/zcompdump
-
+# 現在はプラグインの方で設定
+# autoload -Uz compinit && compinit
+#
 # スペルミス・ワイルドカードでも展開する
 zstyle ':completion:*' completer _complete _match
 
