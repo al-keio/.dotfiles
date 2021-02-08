@@ -10,7 +10,7 @@ if [ ! -e ${FILE_DIR}/notify.env ]; then
 fi
 source ${FILE_DIR}/notify.env
 
-if [ -z "${SLACK_WEBHOOK_URL}" ]; then
+if [[ -z "${SLACK_WEBHOOK_URL}" && -z "${SLACK_NOTIF_DISABLED}" ]]; then
   echo "notify.zsh: SLACK_WEBHOOK_URL is empty !!!"
   echo "Edit 'SLACK_WEBHOOK_URL' or set 'SLACK_NOTIF_DISABLED' to any value at '${FILE_DIR}/notify.env'"
 fi
@@ -100,11 +100,12 @@ EOS
       --header 'Content-type: application/json' \
       --data "$(echo "$payload" | tr '\n' ' ' | tr -s ' ')" \
       $SLACK_WEBHOOK_URL -s > /dev/null
-
-    echo "notify.zsh: notify slack"
-    echo ""
   fi
 }
 
 add-zsh-hook preexec notify_preexec
 add-zsh-hook precmd notify_precmd
+
+alias se="unset SLACK_NOTIF_DISABLED"
+alias sd="SLACK_NOTIF_DISABLED=1"
+

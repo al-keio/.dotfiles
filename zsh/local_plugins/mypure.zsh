@@ -146,6 +146,11 @@ prompt_pure_preprompt_render() {
 	# Add the Git status
   preprompt_parts+=('$(gitprompt)')
 
+  # Display whether slack notif enabled
+  if [[ -z "${SLACK_NOTIF_DISABLED}" ]]; then
+    preprompt_parts+='%F{yellow}%f'
+  fi
+
 	# Execution time.
 	[[ -n $prompt_pure_cmd_exec_time ]] && preprompt_parts+=('%F{$prompt_pure_colors[execution_time]}${prompt_pure_cmd_exec_time}%f')
 
