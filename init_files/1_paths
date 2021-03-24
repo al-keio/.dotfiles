@@ -2,6 +2,9 @@
 
 if [ "$(uname)" = 'Darwin' ]; then
   export PATH="/usr/local/opt/openssl/bin:$PATH"
+  if [ "$(uname -m)" = "arm64" ]; then
+    export PATH="/opt/homebrew/bin/:$PATH"
+  fi
 fi
 
 export PATH="$HOME/local/bin:$PATH"
