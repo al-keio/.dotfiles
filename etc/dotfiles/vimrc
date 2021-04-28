@@ -155,4 +155,6 @@ map <silent> [Tag]h :tabprevious<CR> " tp 前のタブ
 "if filereadable(expand('~/.vim/dein.vim/vimrc.plugin'))
 "  source ~/.vim/dein.vim/vimrc.plugin
 "endif
+"
+au BufNewFile,BufRead ssh_config,*/.ssh/config,*/.ssh/conf.d/*.conf  setf sshconfig
 
