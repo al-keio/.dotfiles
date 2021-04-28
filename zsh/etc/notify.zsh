@@ -36,7 +36,7 @@ function notify_precmd {
     on_detached_tmux_session=`tmux ls -F "#{session_name}: #{session_attached}" | grep "${tmux_session_name}: 0" | wc -l`
   fi
 
-  if [ -n "${SLACK_WEBHOOK_URL}" ] && [ $TTYIDLE -gt ${SLACK_NOTIF_THRESHOLD:-10} -o $on_detached_tmux_session -eq 1 ] && [ $notif_status -ne 130 ] && [ $notif_status -ne 146 ] && [ -z ${SLACK_NOTIF_DISABLED} ]; then
+  if [ -n "${SLACK_WEBHOOK_URL}" ] && [ $TTYIDLE -gt ${SLACK_NOTIF_THRESHOLD:-3} -o $on_detached_tmux_session -eq 1 ] && [ $notif_status -ne 130 ] && [ $notif_status -ne 146 ] && [ -z ${SLACK_NOTIF_DISABLED} ]; then
     local elapsed_time
     tty_idle=${TTYIDLE}
     local days=$(( ${tty_idle} / 60 / 60 / 24 ))
