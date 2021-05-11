@@ -157,4 +157,5 @@ map <silent> [Tag]h :tabprevious<CR> " tp 前のタブ
 "endif
 "
 au BufNewFile,BufRead ssh_config,*/.ssh/config,*/.ssh/conf.d/*.conf  setf sshconfig
+au BufRead,BufNewFile *.ddl set filetype=sql
 
